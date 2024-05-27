@@ -9,7 +9,7 @@ export default function ProductsList() {
   const [showButton, setShowButton] = useState(false);
 
   function fetchProduct() {
-    fetch("https://nextjs-product-q4u0i437y-ravindrauiets-projects.vercel.app/api/products")
+    fetch("/api/products")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -36,7 +36,7 @@ export default function ProductsList() {
   }, []);
 
   function deleteProduct(id) {
-    fetch(`https://nextjs-product-q4u0i437y-ravindrauiets-projects.vercel.app/api/products?id=${id}`, {
+    fetch(`/api/products?id=${id}`, {
       method: "DELETE",
     })
       .then((response) => {

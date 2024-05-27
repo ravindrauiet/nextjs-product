@@ -30,7 +30,7 @@ export default function ProductsForm(props) {
 
     if (props.product.id) {
       console.log(props.product.id);
-      fetch(`https://nextjs-product-q4u0i437y-ravindrauiets-projects.vercel.app/api/products?id=${props.product.id}`, {
+      fetch(`/api/products?id=${props.product.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export default function ProductsForm(props) {
         })
         .catch((error) => console.error("Error:", error));
     } else {
-      fetch(`https://nextjs-product-q4u0i437y-ravindrauiets-projects.vercel.app/api/products`, {
+      fetch(`/api/products`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
