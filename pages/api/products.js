@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const dbFilePath = path.resolve(process.cwd(), 'pages/api/db.json');
+const dbFilePath = path.resolve(process.cwd(), 'public/db.json');
 
 function readProducts() {
   const data = fs.readFileSync(dbFilePath, 'utf8');
