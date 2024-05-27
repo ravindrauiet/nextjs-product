@@ -27,6 +27,9 @@ export default function handler(req, res) {
     } else if (req.method === 'PUT') {
       const { id } = req.query;
       const updatedProduct = req.body;
+      if (!id) {
+        return res.status(400).json({ error: 'Product ID is required' });
+      }
       const productIndex = products.findIndex(product => product.id === id);
       if (productIndex !== -1) {
         products[productIndex] = { ...products[productIndex], ...updatedProduct };
