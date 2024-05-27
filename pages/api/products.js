@@ -13,6 +13,8 @@ function writeProducts(products) {
 }
 
 export default function handler(req, res) {
+  console.log(dbFilePath);
+  console.log(readProducts());
   try {
     let products = readProducts();
 
@@ -27,21 +29,29 @@ export default function handler(req, res) {
     } else if (req.method === 'PUT') {
       const { id } = req.query;
       const updatedProduct = req.body;
+      console.log(id);
+      console.log(updatedProduct);
       if (!id) {
         return res.status(400).json({ error: 'Product ID is required' });
       }
       const productIndex = products.findIndex(product => product.id === id);
+      console.log(productIndex);
       if (productIndex !== -1) {
         products[productIndex] = { ...products[productIndex], ...updatedProduct };
+        console.log("write method start");
         writeProducts(products);
+        console.log("write method end");
         res.status(200).json(products[productIndex]);
       } else {
         res.status(404).json({ message: 'Product not found' });
       }
     } else if (req.method === 'DELETE') {
       const { id } = req.query;
+      console.log(id);
       products = products.filter(product => product.id !== id);
-      writeProducts(products);
+      console.log("write method start");
+        writeProducts(products);
+        console.log("write method end");
       res.status(204).end();
     } else {
       res.status(405).json({ message: 'Method Not Allowed' });
