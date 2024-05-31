@@ -9,7 +9,7 @@ export default function ProductsList() {
   const [showButton, setShowButton] = useState(false);
 
   function fetchProduct() {
-    fetch("/api/products")
+    fetch("/api/topics")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -19,8 +19,8 @@ export default function ProductsList() {
       .then((data) => {
         console.log("Fetched data:", data); // Log the fetched data
         // Ensure data is an array before sorting
-        if (Array.isArray(data)) {
-          const sortedProducts = data.sort((a, b) => b.sl_no - a.sl_no);
+        if (Array.isArray(data.topics)) {
+          const sortedProducts = data.topics.sort((a, b) => b.sl_no - a.sl_no);
           setProducts(sortedProducts);
         } else {
           console.error("Error: Expected an array of products");
@@ -36,7 +36,7 @@ export default function ProductsList() {
   }, []);
 
   function deleteProduct(id) {
-    fetch(`/api/products?id=${id}`, {
+    fetch(`/api/topics?id=${id}`, {
       method: "DELETE",
     })
       .then((response) => {
@@ -112,7 +112,7 @@ export default function ProductsList() {
               <td>{product.balance}</td>
               <td style={{ width: "10px", whiteSpace: "nowrap" }}>
                 <button onClick={() => handleEdit(product)} className="btn btn-primary btn-sm me-2">Edit</button>
-                <button onClick={() => deleteProduct(product.id)} className="btn btn-danger btn-sm me-2">Delete</button>
+                <button onClick={() => deleteProduct(product._id)} className="btn btn-danger btn-sm me-2">Delete</button>
               </td>
             </tr>
           ))}

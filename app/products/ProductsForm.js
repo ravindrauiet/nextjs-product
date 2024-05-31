@@ -21,25 +21,26 @@ export default function ProductsForm(props) {
 
     const product = Object.fromEntries(formData.entries());
 
-    if (!props.product.id) {
+    if (!props.product._id) {
       product.createdAt = new Date().toISOString().slice(0, 10);
       product.id = Date.now();
     }
 
     setValidated(true);
 
-    if (props.product.id) {
-      console.log(props.product.id);
-      fetch(`/api/products?id=${props.product.id}`, {
+    if (props.product._id) {
+      console.log(props.product._id);
+      let pid = props.product._id;
+      fetch(`/api/topics/${pid}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...product, id: props.product.id }),
+        body: JSON.stringify(product),
       })
-        .then((response) => {
+        .then(async(response) => {
           if (!response.ok) {
-            const errorData = response.json();
+            const errorData = await response.json();
             throw new Error(`Network response was not ok: ${response.statusText} - ${errorData.error}`);
           }
           return response.json();
@@ -50,7 +51,7 @@ export default function ProductsForm(props) {
         })
         .catch((error) => console.error("Error:", error));
     } else {
-      fetch(`/api/products`, {
+      fetch(`/api/topics`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
